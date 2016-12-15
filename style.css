@@ -19,6 +19,17 @@ body{
   border-collapse: collapse;
 }
 
+button{
+    min-width: 57px;
+}
+
+.buttonRow{
+  text-align: center;
+  margin:5px;
+
+  padding: 5px;
+}
+
 .boardTile, td{
   padding: 10px;
   width: 100px;

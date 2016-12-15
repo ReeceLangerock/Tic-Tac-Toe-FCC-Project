@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
   <head>
     <meta charset="utf-8">
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="javascript/buttons.js"></script>
+<script src="javascript/config.js"></script>
 
 
 </head>
@@ -14,28 +17,32 @@
 <h1>Tic Tac Toe</h1>
   </div>
 <!--Buttons to view score/reset gameboard/ get help -->
-<button>Help</button>
-<button>Scores</button>
-<button>Reset</button>
+<div class = buttonRow>
+<button id = "helpButton">Help</button>
+<button id = "scoresButton">Scores</button>
+<button id = "newButton">New</button>
+
+</div>
 
 
-
+<br>
 <!--TicTacToe Game board table -->
+
   <table class = gameBoard>
     <tr>
-      <td>1</td>
-      <td>2</td>
-      <td>3</td>
+      <td id = "topLeft">1</td>
+      <td id = "topMiddle">2</td>
+      <td id = "topRight">3</td>
     </tr>
     <tr>
-      <td>1</td>
-      <td>2</td>
-      <td>3</td>
+      <td id = "middleLeft">1</td>
+      <td id = "middleMiddle">2</td>
+      <td id = "middleRight">3</td>
     </tr>
     <tr>
-      <td>1</td>
-      <td>2</td>
-      <td>3</td>
+      <td id = "bottomLeft">1</td>
+      <td id = "bottomMiddle">2</td>
+      <td id = "bottomRight">3</td>
     </tr>
     <table>
 </body>
