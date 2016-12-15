@@ -1,0 +1,30 @@
+.pageBanner{
+  background-color: black;
+  color:white;
+  text-align:center;
+  padding:3px;
+  margin:0 3 0 3;
+  border-radius: 10px;
+}
+
+body{
+  background-color: grey;
+}
+
+
+.gameBoard,table{
+  margin-left: auto;
+  margin-right: auto;
+  border: 3px solid black;
+  border-collapse: collapse;
+}
+
+.boardTile, td{
+  padding: 10px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  border: 2px solid black;
+  border-collapse: collapse;
+  background-color: white;
+}
