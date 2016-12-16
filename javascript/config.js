@@ -1,7 +1,13 @@
 var TicTacConfig = (function() {
     var userGamePiece = 'X';
     var computerGamePiece = 'O';
-    var my_var = 10; //shared variable available only inside your module
+    var myTurn = false; //shared variable available only inside your module
+
+    var gameBoard = [
+      ['None', 'None','None'],
+      ['None', 'None','None'],
+      ['None', 'None','None']
+    ];
 
     function bar() { // this function not available outside your module
         alert(my_var); // this function can access my_var
@@ -15,6 +21,20 @@ var TicTacConfig = (function() {
         getComputerGamePiece: function() {
           return cpuGamePiece; // this function can also access my_var
         }
+
+        getMyTurn: function() {
+          return myTurn; // this function can also access my_var
+        }
+
+        getGameBoard: function() {
+          return gameBoard; // this function can also access my_var
+        }
+
+
+
+
+
+
     };
 
 })();
