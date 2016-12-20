@@ -6,15 +6,16 @@
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="javascript/buttons.js"></script>
-<script src="javascript/config.js"></script>
-
+    <script src="javascript/config.js"></script>
+    <script src="javascript/buttons.js"></script>
+    <script src="javascript/gameLogic.js"></script>
+    <script src="javascript/gameController.js"></script>
 
 </head>
 
 <body>
-  <div class = pageBanner>
-<h1>Tic Tac Toe</h1>
+  <div>
+<h1 class = "pageBanner">Tic Tac Toe</h1>
   </div>
 <!--Buttons to view score/reset gameboard/ get help -->
 <div class = buttonRow>
@@ -30,21 +31,24 @@
 
   <table class = gameBoard>
     <tr>
-      <td id = "topLeft">1</td>
-      <td id = "topMiddle">2</td>
-      <td id = "topRight">3</td>
+      <td id = "c00"></td>
+      <td id = "c01"></td>
+      <td id = "c02"></td>
     </tr>
     <tr>
-      <td id = "middleLeft">1</td>
-      <td id = "middleMiddle">2</td>
-      <td id = "middleRight">3</td>
+      <td id = "c10"></td>
+      <td id = "c11"></td>
+      <td id = "c12"></td>
     </tr>
     <tr>
-      <td id = "bottomLeft">1</td>
-      <td id = "bottomMiddle">2</td>
-      <td id = "bottomRight">3</td>
+      <td id = "c20"></td>
+      <td id = "c21"></td>
+      <td id = "c22"></td>
     </tr>
     <table>
+
+
+      <h2 id = "tester">Winner: </h2>
 </body>
 
 

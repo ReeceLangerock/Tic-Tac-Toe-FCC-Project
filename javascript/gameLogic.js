@@ -1,62 +1,70 @@
-function checkWinner(){
-  var board = TicTacConfig.getGameBoard();
-  var tileOptions = [true,false]
-  var allNotNull = true;
+$(document).ready(function() {
 
-  for(var i =0; i < winOptions.length;i++){
-    var tileFilled = tileOptions[i];
+$("td").click(function() {
 
-    var diagonalComplete1 = true;
-    var diagonalComplete2 = true;
+       var board = TicTacConfig.getGameBoard();
+       var cell = $(this).attr("id");
+       var row = parseInt(cell[1]);
+       var col = parseInt(cell[2]);
 
-    // loop through the board to check if either diagonal is filled
-    for(var x = 0; x < 3; x++){
-      if(board[x][x] != tileFilled){
-        diagonalComplete1 = false;
-      }
-      if(board[2-x][x] != tileFilled){
-        diagonalComplete2 = false;
-      }
+       if (TicTacConfig.getMyTurn()) { // if player turn is true
+           TicTacConfig.updateGameBoard(row,col,true); // saves the user selection in the config object
+           TicTacConfig.switchTurn(); // switches move to CPU
+           updateTiles(); // update html to show user move
 
-      var rowComplete = true;
-      var colComplete = true;
-      // loop through the board to check if a row or column is complete
+           makeCPUMove(); // CPU makes their move
+       }
+   });
+ });
 
-      for(var y = 0; y < 3; y++){
-        if(board[x][y] != tileFilled){
-          colComplete = false;
+function makeCPUMove(){
+    var row =Math.floor(Math.random() *3);
+    var col =Math.floor(Math.random() *3);
+    $("#tester").html(checkWinner());
+    TicTacConfig.switchTurn();
+};
+
+function checkWinner() {
+
+    var board = TicTacConfig.getGameBoard();
+    vals = [true, false];
+    var allNotNull = true;
+    for (var k = 0; k < vals.length; k++) {
+        var value = vals[k];
+
+        // Check rows, columns, and diagonals
+        var diagonalComplete1 = true;
+        var diagonalComplete2 = true;
+        for (var i = 0; i < 3; i++) {
+            if (board[i][i] != value) {
+                diagonalComplete1 = false;
+            }
+            if (board[2 - i][i] != value) {
+                diagonalComplete2 = false;
+            }
+            var rowComplete = true;
+            var colComplete = true;
+            for (var j = 0; j < 3; j++) {
+                if (board[i][j] != value) {
+                    rowComplete = false;
+                }
+                if (board[j][i] != value) {
+                    colComplete = false;
+                }
+                if (board[i][j] == "None") {
+                    allNotNull = false;
+                }
+            }
+            if (rowComplete || colComplete) {
+                return value ? 1 : 0;
+            }
         }
-
-        if(board[y][x] != tileFilled){
-          rowComplete = false;
+        if (diagonalComplete1 || diagonalComplete2) {
+            return value ? 1 : 0;
         }
-
-      }
-
-      if(rowComplete || colComplete){
-        if(tileFilled){
-        return 1;
-      }
-        else {
-          return 0;
-        }
-
-
     }
-
-    if(diagonalComplete1 || diagonalComplete2){
-      if(tileFilled){
-      return 1;
-    }
-      else {
-        return 0;
-      }
-    }
-  }
-    if(allNotNull){
-      return -1;
+    if (allNotNull) {
+        return -1;
     }
     return null;
-
-  }
-}
+};
