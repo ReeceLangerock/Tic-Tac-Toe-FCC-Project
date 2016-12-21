@@ -4,10 +4,15 @@ var TicTacConfig = (function() {
     var computerGamePiece = 'O'; // cpu piece is false
     var myTurn = true; //shared variable available only inside your module
 
+    var scores = {
+      wins:0,
+    losses:0,
+  ties:0};
+
     var gameBoard = [
-      ['None', 'None','None'],
-      ['None', 'None','None'],
-      ['None', 'None','None']
+      [null, null,null],
+      [null, null,null],
+      [null, null,null]
     ];
 
     function bar() { // this function not available outside your module
@@ -23,8 +28,28 @@ var TicTacConfig = (function() {
           return cpuGamePiece; // this function can also access my_var
         },
 
+        addLoss: function(){
+          scores.losses = scores.losses + 1;
+        },
+
+        addWin: function(){
+          scores.wins = scores.wins+1;
+        },
+
+        addTie: function(){
+          scores.ties = scores.ties+1;
+        },
+
+        getScores: function(){
+          return scores;
+        },
+
         getMyTurn: function() {
           return myTurn; // this function can also access my_var
+        },
+
+        updateTurn: function() {
+          myTurn = true;
         },
 
         getGameBoard: function() {
@@ -45,13 +70,16 @@ var TicTacConfig = (function() {
           return true;
         },
 
+        replaceGameBoard: function(board){
+          gameBoard = board;
+        },
+
         resetGameBoard: function(){
-          gameBoard = [];
           gameBoard = [
-            ['None', 'None','None'],
-            ['None', 'None','None'],
-            ['None', 'None','None']
-          ];
+        [null, null, null],
+        [null, null, null],
+        [null, null, null]
+    ];
         }
 };
 

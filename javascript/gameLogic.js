@@ -1,28 +1,142 @@
 $(document).ready(function() {
 
-$("td").click(function() {
+  var myVar = [];
 
-       var board = TicTacConfig.getGameBoard();
-       var cell = $(this).attr("id");
-       var row = parseInt(cell[1]);
-       var col = parseInt(cell[2]);
+      function delayFunction() {
+          for(i=0;i<10;i++){
+              myVar.push(
+                  setTimeout(function(){
+                      alert("Hello")
+                  }, 3000)
+              );
+          }
+      }
 
-       if (TicTacConfig.getMyTurn()) { // if player turn is true
-           TicTacConfig.updateGameBoard(row,col,true); // saves the user selection in the config object
-           TicTacConfig.switchTurn(); // switches move to CPU
-           updateTiles(); // update html to show user move
+      function myStopFunction() {
+          myVar.forEach(function(timer) {
+              clearTimeout(timer);
+          });
+      }
 
-           makeCPUMove(); // CPU makes their move
-       }
-   });
- });
 
-function makeCPUMove(){
-    var row =Math.floor(Math.random() *3);
-    var col =Math.floor(Math.random() *3);
-    $("#tester").html(checkWinner());
+
+    $("td").click(function() {
+
+        var board = TicTacConfig.getGameBoard();
+        var cell = $(this).attr("id");
+        var row = parseInt(cell[1]);
+        var col = parseInt(cell[2]);
+
+        if (TicTacConfig.getMyTurn() && board[row][col]===null) { // if player turn is true
+            TicTacConfig.updateGameBoard(row, col, false); // saves the user selection in the config object
+            TicTacConfig.switchTurn(); // switches move to CPU
+            updateTiles(); // update html to show user move
+            sleep(1000);
+            makeCPUMove(); // CPU makes their move
+        }
+    });
+});
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
+function makeCPUMove() {
+
+    var board = TicTacConfig.getGameBoard();
+    board = minimaxMove(board);
+    TicTacConfig.replaceGameBoard(board);
     TicTacConfig.switchTurn();
+    updateMove();
+
+
 };
+
+function minimaxMove(board) {
+    numNodes = 0;
+    return recurseMinimax(board, true)[1];
+}
+
+function recurseMinimax(board, player) {
+    var winner = checkWinner();
+
+
+    if (winner != null) {
+        switch (winner) {
+            case 1:
+                return [1, board];
+            case 0:
+                return [-1, board];
+            case -1:
+                return [0, board];
+        }
+    } else {
+
+        var nextVal = null;
+        var nextBoard = null;
+
+        for (var i = 0; i < 3; i++) {
+            for (var j = 0; j < 3; j++) {
+                if (board[i][j] == null) {
+                    board[i][j] = player;
+                    var value = recurseMinimax(board, !player)[0];
+                    if ((player && (nextVal == null || value > nextVal)) || (!player && (nextVal == null || value < nextVal))) {
+                        nextBoard = board.map(function(arr) {
+                            return arr.slice();
+                        });
+                        nextVal = value;
+                    }
+                    board[i][j] = null;
+                }
+            }
+        }
+
+
+        return [nextVal, nextBoard];
+    }
+};
+
+function updateMove() {
+    updateTiles();
+    var myMove = TicTacConfig.getMyTurn();
+    var winner = checkWinner();
+    $("#result").html(winner == 1 ? "AI Won!" : winner == 0 ? "You Won!" : winner == -1 ? "Tie!" : "");
+    if(winner === 1){
+      TicTacConfig.addLoss();
+    }
+    else if(winner === 0){
+      TicTacConfig.addWin();
+    }
+    else if (winner === -1){
+      TicTacConfig.addTie();
+    }
+    //$("#turn").html(myMove ? "AI's Move" : "Your move");
+};
+
+
+function updateTiles() {
+    var board = TicTacConfig.getGameBoard();
+
+    for (var i = 0; i < 3; i++) {
+        for (var j = 0; j < 3; j++) {
+
+            if (board[i][j] === true) {
+                $("#c" + i + j).html("O");
+            } else if (board[i][j] === false) {
+                $("#c" + i + j).html("X");
+            } else {
+                $("#c" + i + j).html("");
+            }
+        }
+
+    }
+};
+
 
 function checkWinner() {
 
@@ -51,7 +165,7 @@ function checkWinner() {
                 if (board[j][i] != value) {
                     colComplete = false;
                 }
-                if (board[i][j] == "None") {
+                if (board[i][j] == null) {
                     allNotNull = false;
                 }
             }

@@ -11,6 +11,21 @@ body{
   background-color: grey;
 }
 
+td{
+  font-size: 25px;
+  font-weight: bolder;
+}
+
+.gameResult{
+  text-align: center;
+}
+.pieces{
+  margin-left:50px;
+  margin-right:50px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
 
 .gameBoard,table{
   margin-left: auto;
