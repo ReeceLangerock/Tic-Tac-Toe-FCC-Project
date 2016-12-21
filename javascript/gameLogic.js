@@ -31,20 +31,10 @@ $(document).ready(function() {
             TicTacConfig.updateGameBoard(row, col, false); // saves the user selection in the config object
             TicTacConfig.switchTurn(); // switches move to CPU
             updateTiles(); // update html to show user move
-            sleep(1000);
             makeCPUMove(); // CPU makes their move
         }
     });
 });
-
-function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
-  }
-}
 
 function makeCPUMove() {
 
