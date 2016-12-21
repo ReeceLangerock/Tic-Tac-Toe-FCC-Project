@@ -1,25 +1,4 @@
 $(document).ready(function() {
-
-  var myVar = [];
-
-      function delayFunction() {
-          for(i=0;i<10;i++){
-              myVar.push(
-                  setTimeout(function(){
-                      alert("Hello")
-                  }, 3000)
-              );
-          }
-      }
-
-      function myStopFunction() {
-          myVar.forEach(function(timer) {
-              clearTimeout(timer);
-          });
-      }
-
-
-
     $("td").click(function() {
 
         var board = TicTacConfig.getGameBoard();
